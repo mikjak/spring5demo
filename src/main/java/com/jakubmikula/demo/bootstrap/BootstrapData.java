@@ -32,6 +32,7 @@ public class BootstrapData implements CommandLineRunner {
         publisher.setState("Pomorskie");
         publisher.setZip("80-034");
 
+        // Sapkowski
         Author sapkowski = new Author("Andrzej", "Sapkowski");
 
         Book wiedzmin = new Book("Wiedzmin", "0000001");
@@ -43,18 +44,22 @@ public class BootstrapData implements CommandLineRunner {
 
         sapkowski.getBooks().add(wiedzmin);
         sapkowski.getBooks().add(narrenturm);
+
         wiedzmin.getAuthors().add(sapkowski);
         narrenturm.getAuthors().add(sapkowski);
 
-        Author zafon = new Author("Carlos Ruiz", "Zafon");
-        Book cien_wiatru = new Book("Cien wiatru", "123123");
-        bookRepository.save(cien_wiatru);
-        authorRepository.save(zafon);
-        zafon.getBooks().add(cien_wiatru);
-        cien_wiatru.getAuthors().add(zafon);
-
         wiedzmin.setPublisher(publisher);
         narrenturm.setPublisher(publisher);
+
+        // Zafon
+        Author zafon = new Author("Carlos Ruiz", "Zafon");
+        Book cien_wiatru = new Book("Cien wiatru", "123123");
+
+        bookRepository.save(cien_wiatru);
+        authorRepository.save(zafon);
+
+        zafon.getBooks().add(cien_wiatru);
+        cien_wiatru.getAuthors().add(zafon);
         cien_wiatru.setPublisher(publisher);
 
         publisher.getBooks().add(wiedzmin);
@@ -66,6 +71,7 @@ public class BootstrapData implements CommandLineRunner {
         System.out.println("Number of books in repo: " + bookRepository.count());
         System.out.println("Number of authors in repo: " + authorRepository.count());
         System.out.println("Number of publisher in repo: " + publisherRepository.count());
+        System.out.println("Publisher no. of books: " + publisher.getBooks().size());
 
     }
 }
